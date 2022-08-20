@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            background-color: #6D6B9F;
+        }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            border: 1px solid white;
+            width: 50%;
+            margin: auto;
+            margin-top: 30px;
+        }
+
+        input {
+            border: 0px;
+            border-bottom: 2px solid gray;
+            padding: 10px;
+
+
+        }
+
+        #email,#password,#repeatPassword{
+            width: 90%;
+        }
+
+        
+
+        button {
+            text-align: center;
+            background-color: #6D6B9F;
+            border-radius: 3px;
+            border: #6D6B9F;
+            font-size: large;
+            font-weight: bold;
+            padding: 10px 30px;
+            color: white;
+
+
+        }
+
+        span {
+            display: flex;
+            justify-content: center;
+        }
+
+        h1 {
+            color: #6D6B9F;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .main {
+                width: 90%;
+            }
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <div class="main">
+        <h1>Signup Form</h1>
+
+
+        <form onsubmit="signup(); return false ">
+
+
+            <input type="text" id="firstName" placeholder="firstName" required>
+
+
+            <input type="text" id="lastName" placeholder="lastName" required>
+            <br> <br>
+
+
+            <input type="email" id="email" placeholder="email" required>
+            <br> <br>
+
+
+            <input type="password" id="password" placeholder="password" required>
+            <br> <br>
+
+
+            <input type="password" id="repeatPassword" placeholder="confirm password" required>
+            <br> <br> <br>
+
+            <input type="checkbox" required> I agree with terms and conditions
+            <br> <br> <br>
+
+            <span><button type="submit">signup</button></span>
+
+        </form>
+        <br> <br>
+
+        <p>Already have an account? <a href="login.html">login</a></p>
+
+        <p id="message"></p>
+
+    </div>
+
+
+    <br>
+    <br>
+
+
+    <script>
+
+        function signup() {
+
+            var firstName = document.getElementById('firstName').value;
+            var lastName = document.getElementById('lastName').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var repeatPassword = document.getElementById('repeatPassword').value;
+
+            if (password !== repeatPassword) {
+                document.querySelector("#message").innerHTML = 'Passwords do not match, please try again';
+                return;
+            }
+
+            axios.post('https://signup-form12345.herokuapp.com/signup', {
+
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: password,
+
+            })
+                .then(function (response) {
+                    console.log(response.data);
+                    document.querySelector("#message").innerHTML = response.data.message;
+                    alert(response.data.message)
+                })
+                .catch(function (error) {
+                    console.log(error.response.data);
+                    document.querySelector("#message").innerHTML = error.response.data.message;
+                    alert(error.response.data.message)
+                });
+        }
+
+
+
+    </script>
+
+
+</body>
+
+</html>
