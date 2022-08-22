@@ -78,7 +78,7 @@
         <form onsubmit="signup(); return false ">
 
 
-            <input type="text" id="firstName" placeholder="firstName" required>
+            <input type="text" id="firstName" placeholder="firstName" >
 
 
             <input type="text" id="lastName" placeholder="lastName" required>
@@ -130,7 +130,7 @@
                 return;
             }
 
-            axios.post('https://signup-form12345.herokuapp.com/signup', {
+            axios.post('http://localhost:3000/signup', {
 
                 firstName: firstName,
                 lastName: lastName,
